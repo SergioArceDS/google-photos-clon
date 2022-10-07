@@ -1,0 +1,7 @@
+<div class="photos container-fluid d-flex flex-wrap gap-1">
+    <% photos.forEach(photo => { %>
+        <div class="photo">
+            <img src="http://localhost:3000/images/<%= photo.filename %>">
+        </div>
+    <% }) %>
+</div>

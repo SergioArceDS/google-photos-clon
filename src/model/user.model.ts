@@ -2,6 +2,7 @@ import {Schema, Model, model} from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface IUser {
+    _id?: string,
     username: string;
     password: string;
     name: string;
@@ -9,6 +10,7 @@ export interface IUser {
 
 interface IUserMethods {
     usernameExists(username: string): Boolean;
+    isCorrectPassword(password: string, hash: string): Promise<boolean>;
 }
 
 type UserModel = Model<IUser, {}, IUserMethods>;
@@ -43,5 +45,4 @@ UserSchema.methods.isCorrectPassword = async function (password: string, hash:st
 
     return same;
 };
-
-export default model("User", UserSchema);
+export const User = model("User", UserSchema);

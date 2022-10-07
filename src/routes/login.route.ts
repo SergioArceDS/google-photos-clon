@@ -1,5 +1,5 @@
 import express, {NextFunction, Request, Response} from "express";
-import User, { IUser } from "../model/user.model";
+import { IUser, User } from "../model/user.model";
 
 export const router = express.Router();
 
@@ -9,10 +9,33 @@ router.get('/login', (req: Request, res: Response, next: NextFunction) => {
 router.get('/signup', (req: Request, res: Response, next: NextFunction) => {
     res.render("login/signup");
 });
-router.post('/auth', (req: Request, res: Response, next: NextFunction) => {});
+router.post('/auth', async(req: Request, res: Response, next: NextFunction) => {
+    const {username, password} : IUser = req.body;
+
+    if(!username || !password){
+        console.log("falta un campo");
+        res.redirect("/login");
+    }else{
+        try {
+            let user = await User.findOne({username});
+            if(!user) return console.log("No existe el usuario");
+
+            const passCorret = await user.isCorrectPassword(password, user.password);
+            if(passCorret){
+                req.session.user = user;
+                res.redirect("/home");
+            }else{
+                console.log("Contraseña incorrecta");
+                res.redirect("/login");
+            }
+        } catch (error) {
+            res.redirect("/login");
+        }
+    }
+});
 
 router.post('/register', async(req: Request, res: Response, next: NextFunction) => {
-    const {username, password, name} : {username: string, password: string, name: string} = req.body;
+    const {username, password, name} : IUser = req.body;
     if(!username || !password || !name){
         console.log("Falta un campo");
         res.redirect("login/signup");
@@ -20,10 +43,14 @@ router.post('/register', async(req: Request, res: Response, next: NextFunction) 
         const userObject: IUser = {username, password, name};
         const user = new User(userObject);
 
-        const exists = await user.usernameExists(username);
-        if(exists) res.redirect("/signup");
+        try {
+            const exists = await user.usernameExists(username);
+            if(exists) res.redirect("/signup");
 
-        await user.save();
-        res.redirect("/login");
+            await user.save();
+            res.redirect("/login");
+        } catch (error) {
+            res.redirect("/signup");
+        }
     }
 });
