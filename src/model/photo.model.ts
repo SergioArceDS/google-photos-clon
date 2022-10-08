@@ -1,5 +1,21 @@
 import Mongoose from "mongoose";
 
+export interface IPhotoReq {
+    ids: string;
+    albumid: string;
+};
+
+export interface IPhoto {
+    _id?: string;
+    filename: string;
+    userid: string;
+    size: number;
+    mimeType: string;
+    favorite: boolean;
+    createdAt?: Date;
+    albums: string[];
+};
+
 const PhotoSchema = new Mongoose.Schema({
     id: {type: Object},
     filename: {type: String, required: true},

@@ -1,5 +1,13 @@
 import Mongoose from "mongoose";
 
+export interface IAlbum {
+    id?: string;
+    name: string;
+    userid: string;
+    isprivate: boolean;
+    createdAt: Date;
+};
+
 const AlbumSchema = new Mongoose.Schema({
     id: {type: Object},
     name: {type: String, required: true},
