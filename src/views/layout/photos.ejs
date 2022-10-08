@@ -18,7 +18,28 @@
             <div class="select-container">
                 <input type="checkbox" class="select-photo" value="<%= photo._id %>">
             </div>
-            <img src="http://localhost:3000/images/<%= photo.filename %>">
+
+            <a href="/view/<%= photo._id %>?origin=<%= origin %>">
+                <img src="http://localhost:3000/images/<%= photo.filename %>">
+            </a>
+
+            <div class="actions-container">
+                <% if(photo.userid === user._id){
+                    if(photo.favorite){%>
+                        <form action="/remove-favorite" method="post">
+                            <input type="hidden" name="photoid" value="<%= photo._id %>">
+                            <input type="hidden" name="origin" value="<%= origin %>">
+                            <button class="btn btn-danger">Remove Favorite</button>
+                        </form>
+                    <% }else{ %>
+                        <form action="/add-favorite" method="post">
+                            <input type="hidden" name="photoid" value="<%= photo._id %>">
+                            <input type="hidden" name="origin" value="<%= origin %>">
+                            <button class="btn btn-danger">Favorite</button>
+                        </form>
+                    <%}%>
+                <%}%>
+            </div>
         </div>
     <% }) %>
 </div>

@@ -3,6 +3,8 @@ import multer from "multer";
 import albumModel from "../model/album.model";
 import photoModel from "../model/photo.model";
 
+import { middleware } from "../middlewares/auth.middleware";
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "./public/images");
@@ -18,7 +20,7 @@ const upload = multer({storage: storage});
 
 export const router = express.Router();
 
-router.get('/home', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/home', middleware, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const photos = await photoModel.find({ userid: req.session.user._id! });
         const albums = await albumModel.find({ userid: req.session.user._id! });
@@ -31,7 +33,7 @@ router.get('/home', async (req: Request, res: Response, next: NextFunction) => {
     
 });
 
-router.post('/upload', upload.single("photos"), (req: Request, res: Response, next: NextFunction) => {
+router.post('/upload', middleware, upload.single("photos"), (req: Request, res: Response, next: NextFunction) => {
     const file = req.file!;
     const photoProps = {
         filename: file.filename,

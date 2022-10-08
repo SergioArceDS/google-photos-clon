@@ -5,6 +5,11 @@ export interface IPhotoReq {
     albumid: string;
 };
 
+export interface IPhotoFavReq {
+    photoid: string;
+    origin: string;
+}
+
 export interface IPhoto {
     _id?: string;
     filename: string;

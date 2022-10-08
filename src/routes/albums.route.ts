@@ -1,10 +1,13 @@
 import express, {NextFunction, Request, Response} from "express";
 import albumModel, {IAlbum} from "../model/album.model";
 import photoModel from "../model/photo.model";
+
+import { middleware } from "../middlewares/auth.middleware";
+
 export const router = express.Router();
 
 
-router.get("/albums", async(req: Request, res: Response, next: NextFunction) => {
+router.get("/albums", middleware, async(req: Request, res: Response, next: NextFunction) => {
     try {
         const albums = await albumModel.find({userid: req.session.user._id});
         res.render("albums/index", {user: req.session.user, albums});
@@ -14,7 +17,7 @@ router.get("/albums", async(req: Request, res: Response, next: NextFunction) => 
     
 });
 
-router.get("/albums/:id", async(req: Request, res: Response, next: NextFunction) => {
+router.get("/albums/:id", middleware, async(req: Request, res: Response, next: NextFunction) => {
     const albumid = req.params.id;
     try {
         let photos = await photoModel.find({
@@ -40,7 +43,7 @@ router.get("/albums/:id", async(req: Request, res: Response, next: NextFunction)
     }
 });
 
-router.post("/create-album", async(req: Request, res: Response, next: NextFunction) => {
+router.post("/create-album", middleware, async(req: Request, res: Response, next: NextFunction) => {
     const {name, isprivate}: {name: string, isprivate: string} = req.body;
 
     const albumProps: IAlbum = {

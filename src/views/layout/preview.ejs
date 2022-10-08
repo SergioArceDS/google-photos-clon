@@ -10,16 +10,11 @@
 </head>
 <body>
     <%- include('../layout/navbar') %>
-    <div class="p-3">
-        <h1 class="my-5">Hola, <%= user.name %> </h1>
-
-        <form action="/upload" method="post" id="formUpload" enctype="multipart/form-data">
-            <input type="file" multiple name="photos" id="fileInput" class="">
-            <input type="button" id="bPick" value="Elegir fotos" class="btn btn-primary p-2">
-            <input type="submit" id="bPick" value="Subir fotos" class="btn btn-primary p-2">
-        </form>
-
-        <%- include('../layout/photos', {photos: photos, origin: "/home"}) %>
+    <div class="bg-dark d-flex align-items-center justify-content-center" style="min-height: 94vh;">
+        <div class="d-flex flex-column p-5">
+            <a href="http://localhost:3000/home" class="link-light pb-3">Go back</a>
+            <img src="http://localhost:3000/images/<%= photo.filename %>" class="mw-100">
+        </div>
     </div>
 </body>
 </html>

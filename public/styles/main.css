@@ -1,3 +1,9 @@
 .photo img{
     width: 400px;
 }
+
+.actions-container{
+    display: absolute;
+    margin-top: -50px;
+    margin-left: 15px;
+}

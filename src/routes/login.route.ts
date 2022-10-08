@@ -1,15 +1,17 @@
 import express, {NextFunction, Request, Response} from "express";
 import { IUser, User } from "../model/user.model";
+import { middlewareHome } from "../middlewares/auth.middleware";
+
 
 export const router = express.Router();
 
-router.get('/login', (req: Request, res: Response, next: NextFunction) => {
+router.get('/login', middlewareHome, (req: Request, res: Response, next: NextFunction) => {
     res.render("login/index");
 });
-router.get('/signup', (req: Request, res: Response, next: NextFunction) => {
+router.get('/signup', middlewareHome, (req: Request, res: Response, next: NextFunction) => {
     res.render("login/signup");
 });
-router.post('/auth', async(req: Request, res: Response, next: NextFunction) => {
+router.post('/auth', middlewareHome, async(req: Request, res: Response, next: NextFunction) => {
     const {username, password} : IUser = req.body;
 
     if(!username || !password){
@@ -34,7 +36,7 @@ router.post('/auth', async(req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-router.post('/register', async(req: Request, res: Response, next: NextFunction) => {
+router.post('/register', middlewareHome, async(req: Request, res: Response, next: NextFunction) => {
     const {username, password, name} : IUser = req.body;
     if(!username || !password || !name){
         console.log("Falta un campo");
