@@ -55,6 +55,10 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Hola');
 });
 
+app.use(function(req: Request, res: Response){
+    res.render("error/404");
+});
+
 app.listen(3000, () => {
     console.log('Servidor iniciado');
 });

@@ -1,6 +1,6 @@
 import express, {NextFunction, Request, Response} from "express";
-import albumModel, {IAlbum} from "../model/album.model";
-import photoModel, {IPhoto,IPhotoFavReq,IPhotoReq} from "../model/photo.model";
+import albumModel from "../model/album.model";
+import photoModel, {IPhotoFavReq,IPhotoReq} from "../model/photo.model";
 
 import { middleware } from "../middlewares/auth.middleware";
 
