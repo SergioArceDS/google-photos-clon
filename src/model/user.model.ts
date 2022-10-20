@@ -40,7 +40,6 @@ UserSchema.method("usernameExists", async function usernameExists(username){
 });
 
 UserSchema.methods.isCorrectPassword = async function (password: string, hash:string): Promise<boolean> {
-    console.log(password, hash);
     const same = await bcrypt.compare(password, hash);
 
     return same;

@@ -56,8 +56,6 @@ router.get("/view/:id", middleware, async(req: Request, res: Response, next: Nex
     const photoid = req.params.id as string;
     const origin = req.params.origin as string;
 
-    console.log(photoid, origin);
-
     try {
         const photo = await photoModel.findById(photoid);
         const albums = await albumModel.find({userid: req.session.user._id});

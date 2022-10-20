@@ -10,6 +10,7 @@ export const router = express.Router();
 router.get("/albums", middleware, async(req: Request, res: Response, next: NextFunction) => {
     try {
         const albums = await albumModel.find({userid: req.session.user._id});
+
         res.render("albums/index", {user: req.session.user, albums});
     } catch (error) {
         console.log("Error al encontrar albums");

@@ -9,6 +9,7 @@ import {router as LoginRouter} from "./routes/login.route";
 import {router as HomeRouter} from "./routes/home.route";
 import {router as AlbumRouter} from "./routes/albums.route";
 import {router as PhotoRouter} from "./routes/photos.route";
+import {router as FavoritesRouter} from "./routes/favorites.route";
 import { IUser } from './model/user.model';
 
 declare module "express-session"{
@@ -39,6 +40,7 @@ app.use(LoginRouter);
 app.use(HomeRouter);
 app.use(AlbumRouter);
 app.use(PhotoRouter);
+app.use(FavoritesRouter);
 
 const options: mongoose.ConnectOptions = {
     dbName: process.env.DB_NAME as string,
@@ -50,10 +52,6 @@ const options: mongoose.ConnectOptions = {
     await mongoose.connect(process.env.DB_CONNECTION as string, options);
     console.log("Conectado a Mongo DB");
 })();
-
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hola');
-});
 
 app.use(function(req: Request, res: Response){
     res.render("error/404");

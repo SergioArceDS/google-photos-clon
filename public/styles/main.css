@@ -1,5 +1,21 @@
+body{
+    background-color: aliceblue;
+}
+
+.photo{
+    background-color: #fff;
+}
+
+.select-container{
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
 .photo img{
     width: 400px;
+    height: 300px;
+    object-fit: cover;
 }
 
 .actions-container{

@@ -10,9 +10,11 @@
 </head>
 <body>
     <%- include('../layout/navbar') %>
-    <h1><%= album.name %> </h1>
+    <div class="px-5">
+        <h1 class="my-5"><%= album.name %></h1>
 
-    <%- include("../layout/photos", {photos: photos, albums: albums, origin: "/albums/" + album._id}) %>
+        <%- include("../layout/photos", {photos: photos, albums: albums, origin: "/albums/" + album._id}) %>
+    </div>
 
 </body>
 </html>

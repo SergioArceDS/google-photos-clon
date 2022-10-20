@@ -2,19 +2,19 @@
     Agregar a album: 
     <form action="/add-to-album" method="post">
         <input type="hidden" name="ids">
-        <select name="albumid">
+        <select name="albumid" class="form-select form-select-sm my-2" style="max-width: 400px;">
             <% albums.forEach(album => { %>
                 <option value="<%= album._id%>"><%= album.name %></option>
             <% }) %>
         </select>
 
-        <input type="submit" value="Agregar" class="btn btn-primary">
+        <input type="submit" value="Agregar" class="btn btn-primary my2">
     </form>
 </div>
 
-<div class="photos container-fluid d-flex flex-wrap gap-1">
+<div class="photos container-fluid d-flex flex-wrap gap-3 my-4">
     <% photos.forEach(photo => { %>
-        <div class="photo">
+        <div class="photo shadow-lg my-3">
             <div class="select-container">
                 <input type="checkbox" class="select-photo" value="<%= photo._id %>">
             </div>
@@ -29,13 +29,13 @@
                         <form action="/remove-favorite" method="post">
                             <input type="hidden" name="photoid" value="<%= photo._id %>">
                             <input type="hidden" name="origin" value="<%= origin %>">
-                            <button class="btn btn-danger">Remove Favorite</button>
+                            <button class="btn btn-danger">❤</button>
                         </form>
                     <% }else{ %>
                         <form action="/add-favorite" method="post">
                             <input type="hidden" name="photoid" value="<%= photo._id %>">
                             <input type="hidden" name="origin" value="<%= origin %>">
-                            <button class="btn btn-danger">Favorite</button>
+                            <button class="btn btn-danger">🤍</button>
                         </form>
                     <%}%>
                 <%}%>

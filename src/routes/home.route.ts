@@ -33,8 +33,9 @@ router.get('/home', middleware, async (req: Request, res: Response, next: NextFu
     
 });
 
-router.post('/upload', middleware, upload.single("photos"), (req: Request, res: Response, next: NextFunction) => {
+router.post('/upload', middleware, upload.single("photos"), async(req: Request, res: Response, next: NextFunction) => {
     const file = req.file!;
+
     const photoProps = {
         filename: file.filename,
         mimeType: file.mimetype,
@@ -46,8 +47,8 @@ router.post('/upload', middleware, upload.single("photos"), (req: Request, res: 
     };
 
     const photo = new photoModel(photoProps);
-    photo.save();
-
+    await photo.save()
+        
     res.redirect("/home");
 });
 

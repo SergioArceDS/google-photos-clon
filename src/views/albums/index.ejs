@@ -10,24 +10,30 @@
 </head>
 <body>
     <%- include('../layout/navbar') %>
-    <h1>Hola, <%= user.name %> </h1>
+    <div class="px-5">
+        <h1 class="my-5">Hola, <%= user.name %> </h1>
 
     <form action="/create-album" method="post">
-        <input type="text" name="name" placeholder="Album name">
-        <input type="checkbox" name="isprivate" checked> Private Album
-        <input type="submit" value="Create">
+        <input type="text" name="name" placeholder="Nombre del album" class="form-control my-3" style="max-width: 200px;">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="isprivate" checked>
+            <label class="form-check-label" for="flexCheckDefault">
+              Album privado
+            </label>
+        </div>
+        <input type="submit" value="Crear album" class="btn btn-success my-2">
     </form>
 
-    <div class="albums d-flex p-3 gap-3">
+    <div class="albums d-flex gap-3 my-5">
         <% albums.forEach(album => { %>
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
+            <div class="card shadow" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title"><%= album.name %></h5>
+                  <h5 class="card-title my-4"><%= album.name %></h5>
                   <a href="/albums/<%= album._id %>" class="btn btn-primary">Ver album</a>
                 </div>
               </div>
         <% }) %>
+    </div>
     </div>
 
 </body>
